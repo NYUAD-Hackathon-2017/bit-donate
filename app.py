@@ -1,6 +1,9 @@
 from flask import Flask
 from flask import request, render_template, send_file, request
 from utils import bdb_donate
+import config
+from bigchaindb_driver import BigchainDB
+from bigchaindb_driver.crypto import generate_keypair
 
 app = Flask(__name__)
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
