@@ -52,10 +52,13 @@ def pay():
     elif request.method == 'POST':
         vendor_name = request.form.get('vendor_name')
         amount = request.form.get('amount')
-        sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount)
-        add_transaction_to_collection(client, 'pay', sent_txid)
+        print(vendor_name)
+        print(amount)
+        # sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount)
+        # add_transaction_to_collection(client, 'pay', sent_txid)
         print("added transaction id to mongo")
-        return "Transaction {} sent".format(sent_txid)
+        return str(request.get_json())
+        # return "Transaction {} sent".format(sent_txid)
 
 
 @app.route('/user_donations', methods=['GET'])
@@ -117,7 +120,9 @@ def pay_transactions():
         tx_list=get_transactions(client, blockchain_db, 'pay'),
         sum=sum,
     )
-
+@app.route('/bootstrap')
+def bootstrap():
+    return render_template('bootstrap.html')
 @app.route('/portal')
 def portal():
     dtx_list = get_transactions(client, blockchain_db, 'donate')
@@ -128,13 +133,14 @@ def portal():
         except:
             pass
     ptx_list = get_transactions(client, blockchain_db, 'pay')
+    psum=0
     for tx in ptx_list:
         try:
             psum += int(tx['amount'])
         except:
             pass
     return render_template(
-        'portal.html',
+        'bootstrap.html',
         dtx_list=dtx_list,
         ptx_list=ptx_list,
         dsum=dsum,
