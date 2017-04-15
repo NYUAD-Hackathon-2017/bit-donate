@@ -35,7 +35,7 @@ def donate():
         email=request.form.get('email')
         amount= request.form.get('amount')
         country = countries[randrange(len(countries))]
-        donater_name=first+last
+        donater_name=first+"_"+last+"_"+email
         sent_txid = bdb_donate(blockchain_db, user, donater_name, amount)
         userId = addDonation(client,first,last,email,sent_txid,country)
         add_transaction_to_collection(client, 'donate', sent_txid)
@@ -60,7 +60,7 @@ def pay():
 
 @app.route('/user_donations', methods=['GET'])
 def userDonations():
-    if request.args.get('id'): 
+    if request.args.get('id'):
         donations=getDonersAllDonations(client,request.args.get('id'))
         tids=list(map(lambda x: x['tid'],donations))
         transactoions=list(map(lambda x: get_transaction_by_id(blockchain_db,x), tids))
@@ -116,6 +116,29 @@ def pay_transactions():
         'pay_transactions.html',
         tx_list=get_transactions(client, blockchain_db, 'pay'),
         sum=sum,
+    )
+
+@app.route('/portal')
+def portal():
+    dtx_list = get_transactions(client, blockchain_db, 'donate')
+    dsum = 0
+    for tx in dtx_list:
+        try:
+            dsum += int(tx['amount'])
+        except:
+            pass
+    ptx_list = get_transactions(client, blockchain_db, 'pay')
+    for tx in ptx_list:
+        try:
+            psum += int(tx['amount'])
+        except:
+            pass
+    return render_template(
+        'portal.html',
+        dtx_list=dtx_list,
+        ptx_list=ptx_list,
+        dsum=dsum,
+        psum=psum,
     )
 
 
