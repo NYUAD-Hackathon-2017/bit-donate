@@ -4,8 +4,7 @@ $(function(){
 		$('#cc-info').stop().animate({
 			right:"0"
 		},400);
-		$('#donate').css({display:"none"});
-		$('#submit').css({display:"block"});
-		$('#parent')
+		$('#donate').hide();
+		$('#submit').show();
 	});
 });

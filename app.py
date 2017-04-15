@@ -30,10 +30,17 @@ def donate():
     if request.method == 'GET':
         return render_template('donate.html')
     elif request.method == 'POST':
-        first=request.form.get('first')
-        last=request.form.get('last')
+        name = request.form.get('name').split()
+        first = name[0]
+        try:
+            last = name[1]
+        except IndexError:
+            last = ""
         cc=request.form.get('cc')
-        email=request.form.get('email')
+        try:
+            email = request.form['email']
+        except KeyError:
+            email = 'myemail@college.edu'
         amount= request.form.get('amount')
         country = countries[randrange(len(countries))]
         donater_name=first+"_"+last+"_"+email
