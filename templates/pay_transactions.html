@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% for tx in tx_list %}
+        <p> {{tx.id}} </p>
+        <p> {{tx.vendor_name}} </p>
+        <p> {{tx.amount}} </p>
+    {% endfor %}
+{% endblock %}
