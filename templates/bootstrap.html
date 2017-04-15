@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
-{% block body %}
 
+{% block body %}
+    
       
-    <div class="container-fluid">
+    <div class="container-fluid" style="background-color:d8d8d8 ">
         <br>
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-4">
-                <h1>Doners</h1>
+            <div class="col-md-4" style="background-color: white">
+                <div class="row">
+                <h1 class="col-md-4" style="display: inline-block">Doners</h1>
+                <div class="col-md-3"></div>
+                <h1 class="col-md-4" style="display: inline-block; color: 4bffd1">${{dsum}}</h2>
+
+                </div>
                 <br/>
                 <table class="table">
                     <tr>
@@ -18,17 +24,22 @@
                 
                     {% for tx in dtx_list %}
                     </tr>
-                        <td> {{tx.donater_name}} </td>
+                        {% set list1 = tx.donater_name.split('_') %}
+                        <td> {{list1[0]+' '+list1[1]}} </td>
                         <td> {{tx.amount}} </td>
-                        <td> @.com </td>
+                        <td> {{list1[2]}} </td>
                     </tr>
                     {% endfor %}
                     
                 </table>
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <h1>Payments</h1>
+            <div class="col-md-5" style="background-color: white">
+                <div class="row">
+                    <h1 class="col-md-4" style="display: inline-block">Payments</h1>
+                    <div class="col-md-4"></div>
+                    <h1 class="col-md-4" style="display: inline-block; color: 4bffd1">${{psum}}</h2>
+                </div>
                 <br/>
                 <table class="table">
                     <tr>
@@ -41,47 +52,36 @@
                     <tr>
                         <form action='pay' method='post'>
                         <td>
-                            <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="vendor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Vendors
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="vendor">
-                                <li><a href="#">Resturent</a></li>
-                                <li><a href="#">Hospital</a></li>
-                                <li><a href="#">Contractor</a></li>
-                                <li><a href="#">Hotel</a></li>
-                            </ul>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="price" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Item
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="item">
-                                <li><a href="#">food</a></li>
-                                <li><a href="#">health</a></li>
-                                <li><a href="#">room</a></li>
-                                <li><a href="#">builders</a></li>
-                            </ul>
+                            <div class="form-group">
+                                <select name="vendor_name" class="form-control" id="vendor">
+                                    <option>Resturent</option>
+                                    <option>Hospital</option>
+                                    <option>Contractor</option>
+                                    <option>Hotel</option>
+                                </select>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <input type="number" name="amount" class="form-control" id="amount">
+                                <select name="item" class="form-control" id="name">
+                                    <option>food</option>
+                                    <option>health</option>
+                                    <option>room</option>
+                                    <option>builders</option>
+                                </select>
                             </div>
                         </td>
                         <td>
-                            45
+                            <div class="form-group">
+                                <input id="totalAmount" type="number" name="" class="form-control" id="amount">
+                            </div>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-default">add</button>
+                            <input id="price" name="amount" contenteditable="false" type="number" >
                         </td>
-                        <input type="text" name="vendor_name" style="display: none">
-                        <input type="text" name="amount" style="display: none">
-                        <input type="text" name="" style="display: none">
+                        <td>
+                            <button id="submitPayment" type="submit" class="btn btn-default">add</button>
+                        </td>
                         <form/>
                     </tr>
                 </table>
@@ -95,7 +95,7 @@
                     {% for tx in ptx_list %}
                     <tr>
                         <td>{{tx.vendor_name }}</td>
-                        <td>Hummus<3</td>
+                        <td>{{tx.item }}</td>
                         <td>23</td>
                         <td>{{tx.amount}}</td>
                     </tr>
@@ -111,5 +111,13 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
+    <script>
+        $('#totalAmount').change(function(){
+            
+            $('#price').val(25*$('#totalAmount').val())
+        })
+        $('#totalAmount').keyup(function(){
+            $('#price').val(25*$('#totalAmount').val())
+        })
+    </script>
 {% endblock %}
