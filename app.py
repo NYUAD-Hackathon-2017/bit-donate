@@ -4,16 +4,18 @@ import config
 from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
 from mongoUtil import *
-from utils import bdb_donate, bdb_pay, add_transaction_to_collection, get_transactions
+from utils import bdb_donate, bdb_pay, add_transaction_to_collection, get_transactions, get_transaction_by_id
 from pymongo import MongoClient
 import json
+from random import *
+
 
 
 app = Flask(__name__)
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
 client = MongoClient(config.MONGO_HOST, 27017).bitdonate
 user = generate_keypair()
-
+countries=['Algeria', 'Bahrain', 'Egypt', 'Iran', 'Iraq', 'Palestine', 'Jordan', 'Kuwait', 'Lebanon', 'Libya', 'Morocco', 'Oman', 'Qatar', 'Saudi Arabia', 'Syria', 'Tunisia', 'United Arab Emirates', 'Yemen', 'Ethiopia' , 'Sudan']
 @app.route('/')
 def index():
     return "Hello, world"
@@ -31,9 +33,10 @@ def donate():
         cc=request.form.get('cc')
         email=request.form.get('email')
         amount= request.form.get('amount')
+        country = countries[randrange(len(countries))]
         donater_name=first+last
         sent_txid = bdb_donate(blockchain_db, user, donater_name, amount)
-        userId = addDonation(client,first,last,email,sent_txid)
+        userId = addDonation(client,first,last,email,sent_txid,country)
         add_transaction_to_collection(client, 'donate', sent_txid)
         return redirect("/user_donations?id={}".format(userId))
 
@@ -55,8 +58,19 @@ def pay():
 
 @app.route('/user_donations', methods=['GET'])
 def userDonations():
-    if request.args.get('id'):
-        return request.args.get('id')
+    if request.args.get('id'): 
+        donations=getDonersAllDonations(client,request.args.get('id'))
+        tids=list(map(lambda x: x['tid'],donations))
+        transactoions=list(map(lambda x: get_transaction_by_id(blockchain_db,x), tids))
+        amounts= list(map(lambda x: x['amount'],transactoions))
+        amounts= list(map(lambda x: int(x),amounts))
+        total=0
+        for amount in amounts:
+            total+=amount
+        DonationsList=list()
+        for i in range(len(amounts)):
+            DonationsList.append({"amount": amounts[i],"timestamp":donations[i]['timestamp']})
+        return "total: {} \n donations: \n you donated in {}".format(total,DonationsList)
     return redirect("/")
 
 @app.route('/donate_transactions', methods=['GET'])
