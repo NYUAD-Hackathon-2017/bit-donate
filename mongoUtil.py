@@ -4,8 +4,10 @@ import datetime
 
 
 def addDonation(client,first,last,email,tid):
-    id=-1
-    print(client )
+    # print(client )
+    first=first.lower()
+    last=last.lower()
+    email=email.lower()
     doners = client.doners
     result = doners.find_one(
       {"$and":
@@ -16,7 +18,7 @@ def addDonation(client,first,last,email,tid):
         ]
     })
     if result:
-        id=doners.update({"_id": result['_id']},{
+        doners.update({"_id": result['_id']},{
             "$push":
                 {'donation':
                     {
@@ -37,8 +39,7 @@ def addDonation(client,first,last,email,tid):
                 },
             ]
         }
-        id=doners.insert_one(post).inserted_id
-    return id
+    return "{}_{}_{}".format(first,last,email)
 def listDonations(client):
     doners = client.doners
     result = doners.find()

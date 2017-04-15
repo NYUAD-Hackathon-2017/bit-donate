@@ -32,9 +32,10 @@ def donate():
         amount= request.form.get('amount')
         donater_name=first+last
         sent_txid = bdb_donate(blockchain_db, user, donater_name, amount)
-        addDonation(mongodb,first,last,email,sent_txid)
-        return redirect("/user_donations?id=34")
-
+        userId = addDonation(mongodb,first,last,email,sent_txid)
+        print(userId)
+        # return "done"
+        return redirect("/user_donations?id={}".format(userId))
 
 @app.route('/pay', methods=['GET', 'POST'])
 def pay():
@@ -52,7 +53,7 @@ def pay():
 @app.route('/user_donations', methods=['GET'])
 def userDonations():
     if request.args.get('id'):
-        return "my page"
+        return request.args.get('id')
     return redirect("/")
 
 if __name__ == '__main__':
