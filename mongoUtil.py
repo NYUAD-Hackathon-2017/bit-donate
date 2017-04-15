@@ -3,7 +3,7 @@ from  pprint import pprint
 import datetime
 
 
-def addDonation(client,first,last,email,tid):
+def addDonation(client,first,last,email,tid,country):
     # print(client )
     first=first.lower()
     last=last.lower()
@@ -32,6 +32,7 @@ def addDonation(client,first,last,email,tid):
             "first": first,
             "last": last,
             "email": email,
+            "country" : country,
             "donation": [
                 {
                     "tid": tid,
@@ -45,4 +46,24 @@ def listDonations(client):
     doners = client.doners
     result = doners.find()
     return list(result)
+
+def getDonersAllDonations(client,id):
+    doners = client.doners
+    params=id.split('_')
+    first=params[0]
+    last=params[1]
+    email=params[2]
+    result= doners.find_one(
+      {"$and":
+        [
+            {'email': email},
+            {'first': first},
+            {'last': last}
+        ]
+    })
+    if result:
+        donations=result['donation']
+        return donations
+    else:
+        return "no id found"
 
