@@ -57,6 +57,17 @@ def donate_transactions():
         tx_list=get_transactions(client, blockchain_db, 'donate')
     )
 
+@app.route('/pay_transactions', methods=['GET'])
+def pay_transactions():
+    """
+    Shows all the vendor payments made by the charity.
+    """
+    collection = client.pay_transactions
+    return render_template(
+        'pay_transactions.html',
+        tx_list=get_transactions(client, blockchain_db, 'pay')
+    )
+
 
 if __name__ == '__main__':
     app.run(

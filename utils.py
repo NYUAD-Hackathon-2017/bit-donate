@@ -76,15 +76,17 @@ def get_transactions(mongoclient, bdb, transaction_type):
     """
     if transaction_type == 'donate':
         collection = mongoclient.donate_transactions
+        name_field = 'donater_name'
     elif transaction_type == 'pay':
         collection = mongoclient.pay_transactions
+        name_field = 'vendor_name'
 
     tx_list = []
     for tx in collection.find():
         chain_tx = bdb.transactions.retrieve(tx['id'])
         data = {
             'id': tx['id'],
-            'donater_name': chain_tx['asset']['data']['donater_name'],
+            name_field: chain_tx['asset']['data'][name_field],
             'amount': chain_tx['asset']['data']['amount'],
         }
         tx_list.append(data)
