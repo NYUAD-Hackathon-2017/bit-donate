@@ -1,0 +1,58 @@
+body {
+	margin:0;
+	background-color: #f2f2f2;
+}
+
+nav {
+	box-shadow: 0 2px 8px rgba(0,0,0,0.5)
+}
+
+#form{
+	font-family: sans-serif !important;
+	font-size:medium;
+	color: white;
+}
+
+.inp {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	color: #2196F3;
+}
+
+.inp:focus {
+	outline: none;
+	border-color:#24d8fc;
+}
+
+select {
+	border:none;
+}
+
+#donate {
+	background-color: #E91E63;
+	border-radius:2px;
+	float: right;
+	border:none;
+	padding: 10px;
+	color: white;
+	box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+
+#d-d {
+	background-color: white;
+	border:none;
+	color: #2196F3;
+}
+
+#d-d:focus {
+	outline:none;
+}
+
+a:hover, a:link, a:visited, a:active {
+	text-decoration: none;
+}
+
+.top-text {
+	color: white;
+}

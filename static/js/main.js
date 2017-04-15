@@ -1,0 +1,9 @@
+$(function(){
+	//alert("working");
+	$('#donate').click(function(){
+		$('#cc-info').stop().animate({
+			right:"0"
+		},400);
+		$('#parent')
+	});
+});

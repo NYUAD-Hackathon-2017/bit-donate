@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>مكشوف | Transparent</title>
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="navbar navbar-default" style="min-height: 80px; background-color: #1E88E5; margin-bottom: 0px !important; border:none !important; border-radius: 0px !important; color:white; z-index: 99;">
+            <span class="navbar-brand" style=" margin-top:-10px; margin-left: 15%; color: white;"><h2>Makshoof</h2></span>
+        </nav>
+        <!-- picture -->
+        <div class="container-fluid" style="min-height:450px; background:url('http://www.2givenow.org/images/lineofgirls.jpg') no-repeat; background-size:100%; z-index: -1; filter: blur(5px); transform: scale(1.05); overflow: hidden;">
+        </div>
+        <!-- parent  -->
+        <form action="donate" method="post">
+        <div class="container-fluid clearfix" style="position: relative; background-color: #2196F3; padding: 20px 30px" id="parent">
+
+                <p style="display: inline; float: left;"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Help us Make a Difference</p>
+
+                <p style="display: inline; float: right;">We're Transparent. <a href="#" style="color: white; border-bottom-style: solid; border-bottom-width: 1px;">See our Financials</a></p>
+
+                <div style="min-height: 60px"></div>
+                <p style="font-size: x-large; color: white; line-height: 100px;">My name is <input class="inp" type="text"> and I'd like to donate $ <input class="inp" type="number"> to help with
+                for the children at the orphanage.
+                </p>
+            <br>
+            <button id="donate">DONATE</button>
+
+        <!-- cc-info -->
+        <div class="container-fluid" style="background-color: #2196F3; padding :20px 0; position: absolute; top: 0; right:-1680px ;width:100%; padding: 20px 30px" id="cc-info" z-index:199;>
+            <p class="top-text" style="display: inline; float: left;">You are giving <strong> $50</strong> towards<strong> providing nutrious meals</strong></p>
+            <p class="top-text" style="display: inline; float: right;">We're Transparent. <a href="#" style="color: white; border-bottom-style: solid; border-bottom-width: 1px;">See our Financials</a></p>
+
+            <!-- cc-form-info -->
+            <div class="container">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label>Credit Card</label>
+                        <input type="number" placeholder="Enter Crdit Card Number..." class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    <footer>
+        <div class="container-fluid" style="min-height:100px; background-color: black; color: white; text-align: center;">
+            <h4 style="padding-top: 2%">Transparent &copy; #NYUHack, 2017</h4>
+        </div>
+    </footer>
+    <script
+    src="http://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous">
+    </script>
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src ="/static/js/main.js"></script>
+
+</body>
+</html>
