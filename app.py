@@ -7,18 +7,19 @@ from mongoUtil import *
 from utils import bdb_donate, bdb_pay, add_transaction_to_collection, get_transactions, get_transaction_by_id
 from pymongo import MongoClient
 import json
+import sys
 from random import *
-
-
 
 app = Flask(__name__)
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
 client = MongoClient(config.MONGO_HOST, 27017).bitdonate
 user = generate_keypair()
+
 countries=['Algeria', 'Bahrain', 'Egypt', 'Iran', 'Iraq', 'Palestine', 'Jordan', 'Kuwait', 'Lebanon', 'Libya', 'Morocco', 'Oman', 'Qatar', 'Saudi Arabia', 'Syria', 'Tunisia', 'United Arab Emirates', 'Yemen', 'Ethiopia' , 'Sudan']
 @app.route('/')
 def index():
     return "Hello, world"
+
 
 @app.route('/donate', methods=['GET', 'POST'])
 def donate():
@@ -39,6 +40,7 @@ def donate():
         userId = addDonation(client,first,last,email,sent_txid,country)
         add_transaction_to_collection(client, 'donate', sent_txid)
         return redirect("/user_donations?id={}".format(userId))
+
 
 @app.route('/pay', methods=['GET', 'POST'])
 def pay():
@@ -73,16 +75,26 @@ def userDonations():
         return "total: {} \n donations: \n you donated in {}".format(total,DonationsList)
     return redirect("/")
 
+
 @app.route('/donate_transactions', methods=['GET'])
 def donate_transactions():
     """
     Shows all the donations made to the charity
     """
     collection = client.donate_transactions
+    tx_list = get_transactions(client, blockchain_db, 'donate')
+    sum = 0
+    for tx in tx_list:
+        try:
+            sum += int(tx['amount'])
+        except Exception as e:
+            pass
     return render_template(
         'donate_transactions.html',
-        tx_list=get_transactions(client, blockchain_db, 'donate')
+        tx_list=get_transactions(client, blockchain_db, 'donate'),
+        sum=sum,
     )
+
 
 @app.route('/pay_transactions', methods=['GET'])
 def pay_transactions():
@@ -90,9 +102,20 @@ def pay_transactions():
     Shows all the vendor payments made by the charity.
     """
     collection = client.pay_transactions
+    tx_list = get_transactions(client, blockchain_db, 'pay')
+    sum = 0
+    for tx in tx_list:
+        try:
+            sum += int(tx['amount'])
+            print("hello", file=sys.stderr)
+        except Exception as e:
+            print(str(e), file=sys.stderr)
+            print("error", file=sys.stderr)
+            pass
     return render_template(
         'pay_transactions.html',
-        tx_list=get_transactions(client, blockchain_db, 'pay')
+        tx_list=get_transactions(client, blockchain_db, 'pay'),
+        sum=sum,
     )
 
 
