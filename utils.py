@@ -38,7 +38,7 @@ def bdb_donate(bdb, user, donater_name, amount):
     }
     return prepare_and_send(bdb, user, tx)
 
-def bdb_pay(bdb, user, vendor_name, amount):
+def bdb_pay(bdb, user, vendor_name, amount, item):
     """
     Prepares and sends a pay transaction that contains the vendor name and the amount donated.
 
@@ -49,6 +49,7 @@ def bdb_pay(bdb, user, vendor_name, amount):
             'type': 'payment',
             'vendor_name': vendor_name,
             'amount': amount,
+            'item': item,
         }
     }
     return prepare_and_send(bdb, user, tx)
@@ -103,6 +104,7 @@ def get_transactions(mongoclient, bdb, transaction_type):
             'id': tx['id'],
             name_field: chain_tx['asset']['data'][name_field],
             'amount': chain_tx['asset']['data']['amount'],
+            'item': chain_tx['asset']['data'].get('item')
         }
         tx_list.append(data)
 

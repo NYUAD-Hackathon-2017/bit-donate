@@ -53,13 +53,14 @@ def pay():
     elif request.method == 'POST':
         vendor_name = request.form.get('vendor_name')
         amount = request.form.get('amount')
+        item = request.form.get('item')
         print(vendor_name)
         print(amount)
-        # sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount)
-        # add_transaction_to_collection(client, 'pay', sent_txid)
+        sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount, item)
+        add_transaction_to_collection(client, 'pay', sent_txid)
         print("added transaction id to mongo")
-        return str(request.get_json())
-        # return "Transaction {} sent".format(sent_txid)
+        return redirect('/portal')
+
 
 
 @app.route('/user_donations', methods=['GET'])
