@@ -19,7 +19,7 @@ user = generate_keypair()
 countries=['Algeria', 'Bahrain', 'Egypt', 'Iran', 'Iraq', 'Palestine', 'Jordan', 'Kuwait', 'Lebanon', 'Libya', 'Morocco', 'Oman', 'Qatar', 'Saudi Arabia', 'Syria', 'Tunisia', 'United Arab Emirates', 'Yemen', 'Ethiopia' , 'Sudan']
 @app.route('/')
 def index():
-    return "Hello, world"
+    return render_template('index.html')
 
 
 @app.route('/donate', methods=['GET', 'POST'])
