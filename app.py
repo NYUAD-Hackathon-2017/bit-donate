@@ -120,9 +120,6 @@ def pay_transactions():
         tx_list=get_transactions(client, blockchain_db, 'pay'),
         sum=sum,
     )
-@app.route('/bootstrap')
-def bootstrap():
-    return render_template('bootstrap.html')
 @app.route('/portal')
 def portal():
     dtx_list = get_transactions(client, blockchain_db, 'donate')
