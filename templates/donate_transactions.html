@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% for txid in tx_list %}
+        <p> {{txid}} </p> <br />
+    {% endfor %}
+{% endblock %}

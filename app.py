@@ -1,12 +1,15 @@
 from flask import Flask
 from flask import request, render_template, send_file, request
-from utils import bdb_donate
 import config
 from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
+from utils import bdb_donate, bdb_pay, add_transaction_to_collection, get_transactions
+from pymongo import MongoClient
+import json
 
 app = Flask(__name__)
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
+client = MongoClient(config.MONGO_HOST, 27017).bitdonate
 user = generate_keypair()
 
 @app.route('/')
@@ -24,6 +27,7 @@ def donate():
         donater_name = request.form.get('donater_name')
         amount = request.form.get('amount')
         sent_txid = bdb_donate(blockchain_db, user, donater_name, amount)
+        add_transaction_to_collection(client, 'donate', sent_txid)
         return "Transaction {} sent".format(sent_txid)
 
 
@@ -38,7 +42,21 @@ def pay():
         vendor_name = request.form.get('vendor_name')
         amount = request.form.get('amount')
         sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount)
+        add_transaction_to_collection(client, 'pay', sent_txid)
+        print("added transaction id to mongo")
         return "Transaction {} sent".format(sent_txid)
+
+@app.route('/donate_transactions', methods=['GET']) def donate_transactions():
+    """
+    Shows all the donations made to the charity
+    """
+    collection = client.donate_transactions
+    tx_list = [tx['id'] for tx in get_transactions(client, blockchain_db, 'donate')]
+    print(json.dumps(tx_list, indent=4))
+    return render_template(
+        'donate_transactions.html',
+        tx_list=tx_list,
+    )
 
 
 if __name__ == '__main__':
