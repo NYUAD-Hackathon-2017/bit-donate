@@ -11,7 +11,7 @@ def addDonation(client,first,last,email,tid):
     doners = client.doners
     result = doners.find_one(
       {"$and":
-        [ 
+        [
             {'email': email},
             {'first': first},
             {'last': last}
@@ -27,7 +27,7 @@ def addDonation(client,first,last,email,tid):
                     }
                 }
         })
-    else:    
+    else:
         post = {
             "first": first,
             "last": last,
@@ -39,9 +39,10 @@ def addDonation(client,first,last,email,tid):
                 },
             ]
         }
+        doners.insert(post)
     return "{}_{}_{}".format(first,last,email)
 def listDonations(client):
     doners = client.doners
     result = doners.find()
     return list(result)
-    
+
