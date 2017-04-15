@@ -22,7 +22,7 @@ def addDonation(client,first,last,email,tid,country):
             "$push":
                 {'donation':
                     {
-                        "tid": 1,
+                        "tid": tid,
                         "timestamp": datetime.datetime.utcnow()
                     }
                 }
