@@ -1,23 +1,24 @@
 from pymongo import MongoClient
 from  pprint import pprint
 import datetime
-client = MongoClient('52.66.27.92', 27017).bitdonate
 
 
-def addDonation(first,last,email,amount,cc):
-  # fill me
-    id=0
+def addDonation(client,first,last,email,tid):
+    # print(client )
+    first=first.lower()
+    last=last.lower()
+    email=email.lower()
     doners = client.doners
     result = doners.find_one(
       {"$and":
-        [ 
+        [
             {'email': email},
             {'first': first},
             {'last': last}
         ]
     })
     if result:
-        id=doners.update({"_id": result['_id']},{
+        doners.update({"_id": result['_id']},{
             "$push":
                 {'donation':
                     {
@@ -26,29 +27,22 @@ def addDonation(first,last,email,amount,cc):
                     }
                 }
         })
-    else:    
+    else:
         post = {
             "first": first,
             "last": last,
             "email": email,
             "donation": [
                 {
-                    "tid": 1,
+                    "tid": tid,
                     "timestamp": datetime.datetime.utcnow()
                 },
             ]
         }
-        id=doners.insert_one(post).inserted_id
-    return id
-def listDonations():
+        doners.insert(post)
+    return "{}_{}_{}".format(first,last,email)
+def listDonations(client):
     doners = client.doners
     result = doners.find()
-    for record in result:
-        pprint(record)
-    
-def test():
-    print(addDonation("ahmad","ilaiwi","sssss",46,"3453345"))
-    listDonations()
+    return list(result)
 
-if __name__ == '__main__':
-    test()

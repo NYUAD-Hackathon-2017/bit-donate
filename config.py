@@ -1,2 +1,2 @@
-BLOCKCHAIN_URL = 'http://localhost:9984'
-MONGO_HOST = 'localhost'
+BLOCKCHAIN_URL = 'http://52.66.27.92:9984'
+MONGO_HOST = '52.66.27.92'
