@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    {% for txid in tx_list %}
-        <p> {{txid}} </p> <br />
+    {% for tx in tx_list %}
+        <p> {{tx.id}} </p>
+        <p> {{tx.donater_name}} </p>
+        <p> {{tx.amount}} </p>
     {% endfor %}
 {% endblock %}

@@ -46,16 +46,15 @@ def pay():
         print("added transaction id to mongo")
         return "Transaction {} sent".format(sent_txid)
 
-@app.route('/donate_transactions', methods=['GET']) def donate_transactions():
+@app.route('/donate_transactions', methods=['GET'])
+def donate_transactions():
     """
     Shows all the donations made to the charity
     """
     collection = client.donate_transactions
-    tx_list = [tx['id'] for tx in get_transactions(client, blockchain_db, 'donate')]
-    print(json.dumps(tx_list, indent=4))
     return render_template(
         'donate_transactions.html',
-        tx_list=tx_list,
+        tx_list=get_transactions(client, blockchain_db, 'donate')
     )
 
 

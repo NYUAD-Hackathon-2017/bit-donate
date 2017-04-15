@@ -53,6 +53,7 @@ def bdb_pay(bdb, user, vendor_name, amount):
     }
     return prepare_and_send(bdb, user, tx)
 
+
 def add_transaction_to_collection(client, transaction_type, txid):
     """
     Add the transaction id to MongoDB
@@ -68,6 +69,7 @@ def add_transaction_to_collection(client, transaction_type, txid):
     }
     return collection.insert_one(data).inserted_id
 
+
 def get_transactions(mongoclient, bdb, transaction_type):
     """
     Returns a list of all transactions of type passed
@@ -76,7 +78,18 @@ def get_transactions(mongoclient, bdb, transaction_type):
         collection = mongoclient.donate_transactions
     elif transaction_type == 'pay':
         collection = mongoclient.pay_transactions
-    return collection.find()
+
+    tx_list = []
+    for tx in collection.find():
+        chain_tx = bdb.transactions.retrieve(tx['id'])
+        data = {
+            'id': tx['id'],
+            'donater_name': chain_tx['asset']['data']['donater_name'],
+            'amount': chain_tx['asset']['data']['amount'],
+        }
+        tx_list.append(data)
+
+    return tx_list
 
 if __name__ == '__main__':
     bdb = BigchainDB(config.BLOCKCHAIN_URL)
