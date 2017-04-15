@@ -1,12 +1,11 @@
 from pymongo import MongoClient
 from  pprint import pprint
 import datetime
-client = MongoClient('52.66.27.92', 27017).bitdonate
 
 
-def addDonation(first,last,email,amount,cc):
-  # fill me
-    id=0
+def addDonation(client,first,last,email,tid):
+    id=-1
+    print(client )
     doners = client.doners
     result = doners.find_one(
       {"$and":
@@ -33,22 +32,15 @@ def addDonation(first,last,email,amount,cc):
             "email": email,
             "donation": [
                 {
-                    "tid": 1,
+                    "tid": tid,
                     "timestamp": datetime.datetime.utcnow()
                 },
             ]
         }
         id=doners.insert_one(post).inserted_id
     return id
-def listDonations():
+def listDonations(client):
     doners = client.doners
     result = doners.find()
-    for record in result:
-        pprint(record)
+    return list(result)
     
-def test():
-    print(addDonation("ahmad","ilaiwi","sssss",46,"3453345"))
-    listDonations()
-
-if __name__ == '__main__':
-    test()

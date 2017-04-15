@@ -1,11 +1,15 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask import request, render_template, send_file, request
 from utils import bdb_donate
 import config
 from bigchaindb_driver import BigchainDB
 from bigchaindb_driver.crypto import generate_keypair
+from pymongo import MongoClient
+from mongoUtil import *
+
 
 app = Flask(__name__)
+mongodb = MongoClient('52.66.27.92', 27017).bitdonate
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
 user = generate_keypair()
 
@@ -21,10 +25,15 @@ def donate():
     if request.method == 'GET':
         return render_template('donate.html')
     elif request.method == 'POST':
-        donater_name = request.form.get('donater_name')
-        amount = request.form.get('amount')
+        first=request.form.get('first')
+        last=request.form.get('last')
+        cc=request.form.get('cc')
+        email=request.form.get('email')
+        amount= request.form.get('amount')
+        donater_name=first+last
         sent_txid = bdb_donate(blockchain_db, user, donater_name, amount)
-        return "Transaction {} sent".format(sent_txid)
+        addDonation(mongodb,first,last,email,sent_txid)
+        return redirect("/user_donations?id=34")
 
 
 @app.route('/pay', methods=['GET', 'POST'])
@@ -40,6 +49,11 @@ def pay():
         sent_txid = bdb_pay(blockchain_db, user, vendor_name, amount)
         return "Transaction {} sent".format(sent_txid)
 
+@app.route('/user_donations', methods=['GET'])
+def userDonations():
+    if request.args.get('id'):
+        return "my page"
+    return redirect("/")
 
 if __name__ == '__main__':
     app.run(

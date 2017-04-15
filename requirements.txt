@@ -1,3 +1,4 @@
 Flask
 bigchaindb
+pytest-runner
 bigchaindb_driver
