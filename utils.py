@@ -53,6 +53,21 @@ def bdb_pay(bdb, user, vendor_name, amount):
     }
     return prepare_and_send(bdb, user, tx)
 
+
+def get_transaction_by_id(bdb, txid):
+    """ Returns data about a transaction from its id
+
+    Returns: dict of form
+        {
+            'id': transaction_id,
+            'donater_name OR vendor_name': name of the donater or the vendor depending on what type
+                                           of transaction it is,
+            'amount': amount of money associated with the transaction,
+        }
+
+    """
+    return bdb.transactions.retrieve(txid)['asset']['data']
+
 if __name__ == '__main__':
     bdb = BigchainDB(config.BLOCKCHAIN_URL)
     bdb_donate(bdb, generate_keypair(), 'param', '50')
