@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+      
+    <div class="container-fluid">
+        <br>
+
+<center>
+    <table >
+      <tr>
+        <td align="center" ><div id="Doners" style="border: 1px solid #FFFFFF "></div></td>
+        <td align="center"><div id="Payments" style="border: 1px solid #FFFFFF "></div></td>
+      </tr>
+    </table>
+</center>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+
+
+                <h1>Doners</h1>
+                <br/>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Email</th>
+                    </tr>    
+                
+                    {% for tx in dtx_list %}
+                    </tr>
+                        <td> {{tx.donater_name}} </td>
+                        <td> {{tx.amount}} </td>
+                        <td> @.com </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <h1>Payments</h1>
+                <br/>
+                <table class="table">
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <form action='pay' method='post'>
+                        <td>
+                            <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="vendor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Vendors
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="vendor">
+                                <li><a href="#">Resturent</a></li>
+                                <li><a href="#">Hospital</a></li>
+                                <li><a href="#">Contractor</a></li>
+                                <li><a href="#">Hotel</a></li>
+                            </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="price" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Item
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="item">
+                                <li><a href="#">food</a></li>
+                                <li><a href="#">health</a></li>
+                                <li><a href="#">room</a></li>
+                                <li><a href="#">builders</a></li>
+                            </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" name="amount" class="form-control" id="amount">
+                            </div>
+                        </td>
+                        <td>
+                            45
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-default">add</button>
+                        </td>
+                        <input type="text" name="vendor_name" style="display: none">
+                        <input type="text" name="amount" style="display: none">
+                        <input type="text" name="" style="display: none">
+                        <form/>
+                    </tr>
+                </table>
+                <table class="table">
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for tx in ptx_list %}
+                    <tr>
+                        <td>{{tx.vendor_name }}</td>
+                        <td>Hummus<3</td>
+                        <td>23</td>
+                        <td>{{tx.amount}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+        </div>
+
+
+   
+     <div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+{% endblock %}
