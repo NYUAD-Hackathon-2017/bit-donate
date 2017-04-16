@@ -37,6 +37,7 @@ select {
 	padding: 10px;
 	color: white;
 	box-shadow:0 2px 8px rgba(0,0,0,0.3);
+	font-size: normal !important;
 }
 
 #d-d {
@@ -55,4 +56,26 @@ a:hover, a:link, a:visited, a:active {
 
 .top-text {
 	color: white;
+}
+
+.form-group {
+	font-size:large;
+}
+
+label {
+	color: white;
+}
+
+.form-control {
+	width:100% !important;
+}
+
+.cc-label {
+	margin-right:40px;
+	display: block;
+	width:40% !important;
+}
+
+#back:hover, #back:active {
+	cursor: pointer;
 }
