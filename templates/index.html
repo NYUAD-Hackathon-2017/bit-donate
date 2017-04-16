@@ -27,7 +27,7 @@
             <form action="donate" method="post">
                 <div style="min-height: 60px"></div>
                 <div class="form">
-                    <div class="form-group" style="font-size:x-large; color: white; line-height: 100px;">My name is <input class="inp" type="text"> and I'd like to donate <strong>$ </strong><input class="inp" type="number" > to help the children at the orphanage.
+                    <div class="form-group" style="font-size:x-large; color: white; line-height: 100px;">My name is <input class="inp" name="name" type="text"> and I'd like to donate <strong>$ </strong><input class="inp" name="amount" type="number" > to help the children at the orphanage.
                     </div>
                      <button id="donate" class="submitButton" type="button">DONATE</button>
                 </div>
@@ -48,14 +48,14 @@
                                 <div class="form-group">
                                 <label class="col-sm-2 cc-label">Credit Card</label>
                                 <div class="col-sm-10">
-                                    <input type="text" placeholder="Enter Credit Card Number..." class="form-control inp">
+                                    <input type="text" name="cc" placeholder="Enter Credit Card Number..." class="form-control inp">
                                 </div>
                             </div>
                         <!-- exp date -->
                             <div class="form-group">
                                 <label class="col-sm-2 cc-label">Expiration Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" placeholder="Expiry date..." class="form-control inp">
+                                    <input type="date" name="expiry" placeholder="Expiry date..." class="form-control inp">
                                 </div>
                             </div>
 
@@ -63,12 +63,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 cc-label">CVC</label>
                                 <div class="col-sm-10">
-                                    <input type="number" placeholder="CVV/CVC/OTP" class="form-control inp">
+                                    <input type="number" name="cvv" placeholder="CVV/CVC/OTP" class="form-control inp">
                                 </div>
                             </div>
                     </div>
                     <span id="back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: white; float: left; margin-top:10px;"></span><span style="color: white; font-size: x-large;"> &nbsp;Back</span></span>
-                    <button id="donate" class="submitButton" type="submit"><a href="user.html" style="text-decoration:none; color: white;">DONATE NOW</a></button>
+                    <button id="donate" class="submitButton" type="submit">DONATE NOW</button>
                 </div>
             </div>
         </form>
