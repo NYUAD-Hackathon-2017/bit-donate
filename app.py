@@ -9,6 +9,7 @@ from pymongo import MongoClient
 import json
 import sys
 from random import *
+import random
 
 app = Flask(__name__,static_url_path='/static')
 
@@ -79,12 +80,20 @@ def userDonations():
         amounts= list(map(lambda x: x['amount'],transactoions))
         amounts= list(map(lambda x: int(x),amounts))
         total=0
+        benifit=["you Helped with the cost of buying pens for children","you Helped with the cost of buying bags for children",'you Helped with the cost of buying computers for chilren','you Helped with the cost of going on a trip']
         for amount in amounts:
             total+=amount
         DonationsList=list()
+        dates=list()
+        amount=list()
         for i in range(len(amounts)):
-            DonationsList.append({"amount": amounts[i],"timestamp":donations[i]['timestamp']})
-        return "total: {} \n donations: \n you donated in {}".format(total,DonationsList)
+            DonationsList.append({"amount": amounts[i],
+            "timestamp":donations[i]['timestamp'],
+            'benefit': random.choice(benifit)
+            })
+            dates.append(donations[i]['timestamp'])
+        return render_template('user.html',total=total,list=DonationsList)
+        # return "total: {} \n donations: \n you donated in {}".format(total,DonationsList)
     return redirect("/")
 
 
