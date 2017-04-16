@@ -1,8 +1,22 @@
 <html>
     <head>
+        <style>
+            table{
+
+                width:100%
+                border: 1px solid white;
+                border-collapse: white;
+            }
+            th, td {
+                padding: 5px;
+                text-align: center;
+            }
+        </style> 
+        <script src="/static/canvasjs.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-         <script type="text/javascript"> 
-         // Load Charts and the corechart package.
+        <script type="text/javascript">
+
+      // Load Charts and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
       // Draw the pie chart for Sarah's pizza when Charts is loaded.
@@ -44,10 +58,11 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Book', 522],
-          ['Electronic device', 300],
-          ['meal', 1004],
-          ['Medication', 1200],
+          ['Mushrooms', 2],
+          ['Onions', 2],
+          ['Olives', 2],
+          ['Zucchini', 0],
+          ['Pepperoni', 3]
         ]);
 
         // Set options for Anthony's pie chart.
@@ -59,10 +74,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('Payments'));
         chart.draw(data, options);
       }
-
-        </script>      
-            <script src="/static/canvasjs.min.js"></script>
-
+    </script>
 
         <title> 
             {% block title %} 
@@ -74,12 +86,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     </head>
 
     <body>
+        <!--Table and divs that hold the pie charts-->
+   
         {% block body %}
         {% endblock %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
