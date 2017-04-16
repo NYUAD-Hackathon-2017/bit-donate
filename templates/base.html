@@ -1,6 +1,53 @@
 <html>
     <head>
-        <title> {% block title %} {% endblock %} </title>
+         <script type="text/javascript"> 
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Test Najwa"
+                },
+                animationEnabled: true,
+                theme: "theme2",
+                data: [
+                {
+                    type: "doughnut",
+                    indexLabelFontFamily: "Garamond",
+                    indexLabelFontSize: 20,
+                    startAngle: 0,
+                    indexLabelFontColor: "dimgrey",
+                    indexLabelLineColor: "darkgrey",
+                    toolTipContent: "{y} %",
+
+                    dataPoints: [
+            //      { y: 51.04, indexLabel: "Android {y}%" },
+            //      { y: 40.83, indexLabel: "iOS {y}%" },
+            //      { y: 3.20, indexLabel: "Java ME {y}%" },
+            //      { y: 1.11, indexLabel: "BlackBerry {y}%" },
+            //      { y: 2.29, indexLabel: "Windows {y}%" },
+            //      { y: 1.53, indexLabel: "Others {y}%" }
+            
+                    {  y: 53.37, legendText:"Android ll", indexLabel: "Country1 53%" },
+                    {  y: 35.0, legendText:"iOS 35%", indexLabel: "Country2 35%" },
+                    {  y: 7, legendText:"Blackberry 7%", indexLabel: "Country3 7%" },
+                    {  y: 2, legendText:"Windows 2%", indexLabel: "Country4 2%" },
+                    {  y: 5, legendText:"Others 5%", indexLabel: "others 5%" }
+
+                    ]
+                }
+                ]
+            });
+
+            chart.render();
+        }
+
+        </script>      
+            <script src="/static/canvasjs.min.js"></script>
+
+
+        <title> 
+            {% block title %} 
+            {% endblock %}
+        </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +55,7 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     </head>
 
     <body>

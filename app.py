@@ -10,7 +10,8 @@ import json
 import sys
 from random import *
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/static')
+
 blockchain_db = BigchainDB(config.BLOCKCHAIN_URL)
 client = MongoClient(config.MONGO_HOST, 27017).bitdonate
 user = generate_keypair()
