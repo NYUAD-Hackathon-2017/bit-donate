@@ -2,7 +2,7 @@ $(function(){
 	//alert("working");
 	$('#donate').click(function(){
 		$('#cc-info').stop().animate({
-			right:"0"
+			right:"-1680px"
 		},400);
 		$('#donate').hide();
 		$('#submit').show();

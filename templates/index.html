@@ -19,7 +19,7 @@
         <div class="container-fluid" style="min-height:450px; background:url('http://www.2givenow.org/images/lineofgirls.jpg') no-repeat; background-size:100%; z-index: -1; filter: blur(5px); transform: scale(1.05); overflow: hidden;">
         </div>
         <!-- parent  -->
-        <div class="container-fluid clearfix" style="position: relative; background-color: #2196F3; padding: 20px 30px" id="parent">
+        <div class="container-fluid clearfix" style="position: relative; background-color: #2196F3; padding: 20px 30px; overflow: hidden;" id="parent">
                 <p class="top-text" style="display: inline; float: left;"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Help us Make a Difference</p>
 
                 <p class="top-text" style="display: inline; float: right;">We're Transparent. <a href="#" style="color: white; border-bottom-style: solid; border-bottom-width: 1px;">See our Financials</a></p>
@@ -42,33 +42,33 @@
             </div>
 
             <!-- cc-form-info -->
-                <div class="form-inline" style="margin-bottom: 45px;">
+                <div class="form-inline clearfix">
                 <!-- credit card number -->
+                        <div style="margin-bottom: 45px;">
+                                <div class="form-group">
+                                <label class="col-sm-2 cc-label">Credit Card</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="Enter Credit Card Number..." class="form-control inp">
+                                </div>
+                            </div>
+                        <!-- exp date -->
+                            <div class="form-group">
+                                <label class="col-sm-2 cc-label">Expiration Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date" placeholder="Expiry date..." class="form-control inp">
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 cc-label">Credit Card</label>
-                            <div class="col-sm-10">
-                                <input type="text" placeholder="Enter Crdit Card Number..." class="form-control inp">
+                            <!-- cvc num -->
+                            <div class="form-group">
+                                <label class="col-sm-2 cc-label">CVC</label>
+                                <div class="col-sm-10">
+                                    <input type="number" placeholder="CVV/CVC/OTP" class="form-control inp">
+                                </div>
                             </div>
-                        </div>
-                    <!-- exp date -->
-                        <div class="form-group">
-                            <label class="col-sm-2 cc-label">Expiration Date</label>
-                            <div class="col-sm-10">
-                                <input type="date" placeholder="Expiry date..." class="form-control inp">
-                            </div>
-                        </div>
-
-                        <!-- cvc num -->
-                        <div class="form-group">
-                            <label class="col-sm-2 cc-label">CVC</label>
-                            <div class="col-sm-10">
-                                <input type="number" placeholder="CVV/CVC/OTP" class="form-control inp">
-                            </div>
-                        </div>
                     </div>
-
-                    <button id="donate" class="submitButton" type="submit">DONATE NOW</button>
+                    <span id="back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: white; float: left; margin-top:10px;"></span><span style="color: white; font-size: x-large;"> &nbsp;Back</span></span>
+                    <button id="donate" class="submitButton" type="submit"><a href="user.html" style="text-decoration:none; color: white;">DONATE NOW</a></button>
                 </div>
             </div>
         </form>
